@@ -1,1 +1,0 @@
-./scripts/samtools/samtools bam2fq ~/scripts/ensambleDeSequenciasFastq/output.bam | seqtk seq -A - > ~/scripts/ensambleDeSequenciasFastq/output.fa
