@@ -1,0 +1,23 @@
+## genome assembly
+abyss-pe name=assignment k=36 in='Illumina1.fq Illumina2.fq'
+
+## building reference genome bt formats
+bowtie2-build ~/Downloads/AACB02.1.fsa_nt indexGiardia
+
+## fastq to sam
+bowtie2 -x ~/scripts/ensambleDeSequenciasFastq/indexes/indexGiardia -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
+
+## sam to bam conversion
+./scripts/samtools/samtools view -b -S -o scripts/ensambleDeSequenciasFastq/alignments/output.bam scripts/ensambleDeSequenciasFastq/alignments/output.sam
+
+## sorting bam file
+./scripts/samtools/samtools sort scripts/ensambleDeSequenciasFastq/alignments/output.bam -o scripts/ensambleDeSequenciasFastq/alignments/sorted_output
+
+## indexing bam file
+./scripts/samtools/samtools index scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam
+
+## bam to bed
+bedtools bamtobed -i scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam | head -3
+
+
+
