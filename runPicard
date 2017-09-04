@@ -1,1 +1,0 @@
-java -jar /home/carlos/scripts/picard/build/libs/picard.jar FastqToSam F1=/home/carlos/scripts/ensambleDeSequenciasFastq/data/fastq/Illumina1.fq O=output.bam SM=for_tool_testing  
