@@ -1,22 +1,32 @@
-## quality control and trimming 
-Rscript pipeline.R
-
-## Filtrado de secuencias 
-## lecturas con menos de 36 nt
-cutadapt -o filteredData/Illumina1_filt.fq -p filteredData/Illumina2_filt.fq data/Illumina1.fq data/Illumina2.fq -m 36 
-##
-cutadapt \  
-            -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC   \     # adaptadores Illumina truSeq
-            -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
-            -o filteredData/Illumina1_filt.fastq -p filteredData/Illumina2_filt.fastq  \
-            data/Illumina1.fq data/Illumina2.fq  \ ## secuencias con menos de 36 nt 
-            -m 36 \             
+## Generación de reportes calidad de sequencias
+Rscript pipeLine.R
+perl FastQC/FaQCs.pl -p data/Illumina1.fq data/Illumina2.fq -d figures/ -qc_only
 
 
-## genome assembly
+## Filtrado de secuencias con:
+## i) adaptadores Illumina truSeq
+## ii) lecturas con menos de 36 nt
+## iii) al menos un valor N
+cutadapt \
+             -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
+             -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
+             -o filteredData/Illumina1_filt.fastq -p filteredData/Illumina2_filt.fastq  \
+             data/Illumina1.fq data/Illumina2.fq  \
+             -m 36 \
+             --max-n 1
+
+
+## Ensamble de sequencias
 cd alignments
 abyss-pe name=assignment k=36 in='filteredData/Illumina1_filt.fq filteredData/Illumina2_filt.fq' 
 cd ..
+
+
+
+
+
+
+
 
 ## building reference genome bt formats
 cd indexes
@@ -41,7 +51,5 @@ samtools bam2fq alignments/sorted_output | seqtk seq -A - > alignments/output.fq
 ## bam to bed
 bedtools bamtobed -i scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam | head -3
 
-cd alignments
-abyss-pe name=ens k=30 in='alignments/output.fq' 
-cd ..
+
 
