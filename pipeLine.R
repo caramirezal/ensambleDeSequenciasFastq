@@ -10,7 +10,7 @@ library(ShortRead)
 ## control de calidad
 
 ## ubicación de los archivos fastq
-dir <- "data/fastq/"
+dir <- "data/"
 files <- list.files(dir)
 path <- paste(dir,files,sep = "")
 #rqc <- rqc(path = dir,pattern = ".gz")
@@ -45,9 +45,6 @@ dev.off()
 ## Filtrado de datos
 
 ## lectura de archivos fastq usando ShortRead
-dir <- "data/fastq/"
-files <- list.files(dir)
-path <- paste(dir,files,sep = "")
 fq <- lapply(path, function(x) readFastq(x))
 
 cat("Lecturas fastq previo a filtros")
@@ -61,4 +58,13 @@ trimmed <- lapply(trimmed, function(x) x[width(x) >= 36])
 
 cat("Lecturas fastq después de filtros")
 trimmed
+
+writeFastq(object = trimmed[[1]],
+           file = "filteredData/Illumina1_filt.fq",
+           compress = FALSE)
+writeFastq(object = trimmed[[2]],
+           file = "filteredData/Illumina2_filt.fq",
+           compress = FALSE)
+
+
 
