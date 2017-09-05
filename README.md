@@ -1,7 +1,8 @@
 # Fastq sequences assembly
 
 This repository provides scripts used to perform quality control and 
-assembly of fastq Solexa sequences from Illumina platform.
+assembly of fastq Solexa sequences from Illumina platform. The 
+pipeline is implemented using the nextflow tool.
 
 ## Introduction
 
@@ -12,21 +13,41 @@ The pipeline performs the following tasks:
 * **Sequence alignment**
 
 
-## 0 Preparing data
+## Pipeline dependencies
 
-To reproduce the pipeline presented here clone the github repository
-by executing the following command on a linux shell.
+To reproduce the pipeline presented here clone the github repository,
+go to the directory of the cloned repository by executing the following 
+commands on a linux shell. 
 
 ```r
 https://github.com/caramirezal/ensambleDeSequenciasFastq.git
 cd ensambleDeSequenciasFastq
 ``` 
 
-Then, copy the fastq data to process into the data directory. In this
-case Illumina1.fq and Illumina2.fq.
- 
+From now on it is assumed that the current directory is that of the
+cloned repository.
 
-## 0.1 Pipeline dependencies
+Additionally, following tools must be previously installed. 
+
+* (nextflow)[https://www.nextflow.io/] - type 
+`curl -s https://get.nextflow.io | bash ` 
+* (FaQCs)[https://github.com/LANL-Bioinformatics/FaQCs] - clone
+in the current repository executing `git clone https://github.com/LANL-Bioinformatics/FaQCs.git`
+
+
+
+
+
+## 0 Preparing data
+
+Then, copy the fastq.gz data files to process into the data directory. 
+In my case, the files are called Illumina1.fq.gz and Illumina2.fq.gz. 
+Finally, open the 'pipeline' nextflow script file and change the path0 
+to the current directory path (in my case /home/scripts/ensambleDeSequenciasFastq). 
+
+
+
+
 
 
 
