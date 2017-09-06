@@ -75,7 +75,11 @@ sections.
 Control quality was evaluated by the analysis of quality scores in
 fastq sequences. The next figure shows the frequency of reads with
 a given Qscore and nucleotide position (left) and quality *vs* position
-(right). The figure was generated using
+(right). 
+
+[](figures/qcontrol.png)
+
+The figure was generated using
 [FaQCs](https://github.com/LANL-Bioinformatics/FaQCs) tool as is
 implemented in pipeline file. 
 
