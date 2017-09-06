@@ -1,0 +1,9 @@
+
+Reads #: 239400
+Total bases: 9576000
+Reads Length: 40.00
+Processed 239400 reads for quality check only
+  Reads length < 36 bp: 0 (0.00 %)
+  Reads have 2 continuous base "N": 17 (0.01 %)
+  Low complexity Reads  (>85.00% mono/di-nucleotides): 0 (0.00 %)
+  Reads < average quality 0.0: 0 (0.00 %)
