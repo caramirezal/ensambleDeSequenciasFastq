@@ -15,7 +15,7 @@ The pipeline performs the following tasks:
 Here, we describe the files and directories in this reppository:
 
 * pipeline - main pipeline script implemented using nextflow.
-* pipeLie.R - R script containing optional data quality and filtering
+* pipeLine.R - R script containing optional data quality and filtering
 routines.
 * alignments - contain aligned sequences in fasta format.
 * figures - contain figures shown here.
@@ -111,13 +111,20 @@ cutadapt \
              --max-n 1  > $path0/filteredData/filt_report.txt
 ```
 
-The outputs are the fastq filtered sequences Illumina1_filt.fastq and
-Illumina2_filt.fastq in the filteredData directory. A summary of the process
-is saved in the filt_report.txt file.
+The outputs are fastq filtered sequences. In this case Illumina1_filt.fastq and Illumina2_filt.fastq. These files are stored in the filteredData directory. A summary of the process is given in the filt_report.txt file.
 
 
 ## Sequences assembly
 
+The trimmed and filtered sequences obtained so far were assembled
+into contigs. The routine was carried out using [abyss](https://github.com/bcgsc/abyss) tool. The next code is implemented in the pipeline script.
+
+```r
+abyss-pe name=assignment k=36 in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq'
+```
+
+The output aligned sequences in fasta format are exported into the
+alignments directory.  
 
 
 https://www.ncbi.nlm.nih.gov/genome/genomes/26?
