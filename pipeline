@@ -1,55 +1,35 @@
-## Generación de reportes calidad de sequencias
-Rscript pipeLine.R
-perl FastQC/FaQCs.pl -p data/Illumina1.fq data/Illumina2.fq -d figures/ -qc_only
+#!/usr/bin/nev nextflow
 
 
-## Filtrado de secuencias con:
-## i) adaptadores Illumina truSeq
-## ii) lecturas con menos de 36 nt
-## iii) al menos un valor N
-cutadapt \
-             -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
-             -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
-             -o filteredData/Illumina1_filt.fastq -p filteredData/Illumina2_filt.fastq  \
-             data/Illumina1.fq data/Illumina2.fq  \
-             -m 36 \
-             --max-n 1
+path0 = "/home/carlos/scripts/ensambleDeSequenciasFastq/"
+path1 = "/home/carlos/scripts/ensambleDeSequenciasFastq/data/Illumina1.fq.gz"
+path2 = "/home/carlos/scripts/ensambleDeSequenciasFastq/data/Illumina2.fq.gz"
 
+process fastq_assembly {
 
-## Ensamble de sequencias
-cd alignments
-abyss-pe name=assignment k=36 in='filteredData/Illumina1_filt.fq filteredData/Illumina2_filt.fq' 
+"""
+
+## Quality reports
+#perl $path0/FaQCs/FaQCs.pl -p $path1 $path2 -d $path0/qreports/ -qc_only
+# Optional
+#Rscript pipeLine.R
+
+## Processing sequences
+## Removing:
+## i) Illumina truSeq adaptors
+## ii) reads < 36 nt
+## iii) reads having N values
+#cutadapt \
+#             -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
+#             -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
+#             -o $path0/filteredData/Illumina1_filt.fastq -p $path0/#filteredData/Illumina2_filt.fastq  \
+#             $path0/data/Illumina1.fq.gz $path0/data/Illumina2.fq.gz  \
+#             -m 36 \
+#             --max-n 1  > $path0/filteredData/filt_report.txt
+
+cd $path0/alignments
+abyss-pe name=assignment k=36 in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq' 
 cd ..
 
-
-
-
-
-
-
-
-## building reference genome bt formats
-cd indexes
-bowtie2-build ../genomes/GCA_001543975.1_G_duodenalis_AssB_BAH15c1_genomic.fna giardia_ref
-cd ..
- 
-## fastq to sam
-bowtie2 -x indexes/giardia_ref -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
-
-## sam to bam conversion
-samtools view -b -S -o alignments/output.bam alignments/output.sam
-
-## sorting bam file
-./scripts/samtools/samtools sort scripts/ensambleDeSequenciasFastq/alignments/output.bam -o scripts/ensambleDeSequenciasFastq/alignments/sorted_output
-
-## indexing bam file
-./scripts/samtools/samtools index scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam
-
-## bam to fasta
-samtools bam2fq alignments/sorted_output | seqtk seq -A - > alignments/output.fq
-
-## bam to bed
-bedtools bamtobed -i scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam | head -3
-
-
-
+	"""
+}
