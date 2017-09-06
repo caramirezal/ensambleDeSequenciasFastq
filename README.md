@@ -77,7 +77,7 @@ fastq sequences. The next figure shows the frequency of reads with
 a given Qscore and nucleotide position (left) and quality *vs* position
 (right). 
 
-[](figures/qcontrol.jpg)
+![](figures/qcontrol.jpg)
 
 The figure was generated using
 [FaQCs](https://github.com/LANL-Bioinformatics/FaQCs) tool as is
