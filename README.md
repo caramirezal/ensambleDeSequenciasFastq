@@ -24,7 +24,9 @@ routines.
 * indexes - having builded reference genome files to align sequences.
 * qreports - quality control reports files.
 
-## 0. Pipeline dependencies
+## 0. Running this pipeline
+
+## 0.1 Pipeline dependencies
 
 In order to reproduce the pipeline presented here you must clone the github repository and go to the directory of the cloned repository by executing 
 the following commands on a linux shell. 
@@ -46,7 +48,7 @@ see installation manual [here](http://cutadapt.readthedocs.io/en/stable/installa
 * [RQC](https://bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html) - r Package *Optionally*.
 
 
-## 0. Preparing data
+## 0.2 Preparing data
  
 The next step is to specify your local paths. You can do this
 by openning the "pipeline" nextflow text file and change the path0,
@@ -118,7 +120,7 @@ cutadapt \
 The outputs are fastq filtered sequences. In this case Illumina1_filt.fastq and Illumina2_filt.fastq. These files are stored in the filteredData directory. A summary of the process is given in the filt_report.txt file.
 
 
-## Sequences assembly
+## 3. Sequences assembly
 
 The trimmed and filtered sequences obtained so far were assembled
 into contigs. The routine was carried out using [abyss](https://github.com/bcgsc/abyss) tool. The next code is implemented in the pipeline script.
@@ -128,7 +130,44 @@ abyss-pe name=assignment k=36 in='$path0/filteredData/Illumina1_filt.fastq $path
 ```
 
 The output aligned sequences in fasta format are exported into the
-alignments directory.  
+alignments directory. The length of the aligned sequences are shown in the next figure.
 
+![](figures/lengthReads.jpg)
 
-https://www.ncbi.nlm.nih.gov/genome/genomes/26?
+The routine to process the data and plot the previous figure is 
+given in the assemblyReport.R script. 
+
+## Bonus
+
+**Work at progress**: Ongoing work is being carried out to align the
+assembled contigs sequences to reference libraries. The following 
+routines are allready implemented in the pipeline script.
+
+```r
+## fastq to sam
+bowtie2 -x ~/scripts/ensambleDeSequenciasFastq/indexes/indexGiardia -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
+bowtie2 -x indexes/giardia_ref -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
+  
+## sam to bam conversion
+./scripts/samtools/samtools view -b -S -o scripts/ensambleDeSequenciasFastq/alignments/output.bam scripts/ensambleDeSequenciasFastq/alignments/output.sam
+samtools view -b -S -o alignments/output.bam alignments/output.sam
+  
+## sorting bam file
+./scripts/samtools/samtools sort scripts/ensambleDeSequenciasFastq/alignments/output.bam -o scripts/ensambleDeSequenciasFastq/alignments/sorted_output
+  
+## indexing bam file
+./scripts/samtools/samtools index scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam
+  
+## bam to fasta
+samtools bam2fq alignments/sorted_output | seqtk seq -A - > alignments/output.fq
+ 
+## bam to bed
+bedtools bamtobed -i scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam | head -3
+```
+
+Blast searches with longer assembled sequences result from
+the assembled process were used to identify specie relationship.
+The best scores associate the provided sequences to *Giardia Lamblia*
+protozoa.
+The sequences were aligned to the [*Giardia lamblia*](https://www.ncbi.nlm.nih.gov/genome/genomes/26?) reference genome. 
+
