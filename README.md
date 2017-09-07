@@ -1,7 +1,7 @@
 # Fastq sequences assembly
 
 This repository provides scripts used to perform quality control and 
-assembly of fastq Solexa sequences from Illumina platform. The 
+assembly of fastq *Solexa* sequences from **Illumina** platform. The 
 pipeline is implemented using the nextflow tool.
 
 ## Introduction
@@ -12,7 +12,7 @@ The pipeline performs the following tasks:
 * **Sequence filtering**
 * **Sequences assembly**
 
-Here, we describe the files and directories in this reppository:
+Here, we describe the files and directories in this repository:
 
 * pipeline - main pipeline script implemented using nextflow.
 * pipeLine.R - R script containing optional data quality and filtering
