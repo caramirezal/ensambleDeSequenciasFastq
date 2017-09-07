@@ -33,15 +33,27 @@ abyss-pe name=assignment K=10 k=36 \
               B=100M H=1 kc=3 \
               --directory=$path0/alignments
 
-## K parameter optimization
-## uncomment this section and replace by your local
-## paths to fastq files
-#for i in 10 11 12 13 14 15
-#        do
-#        mkdir $path0/alignments/K$i
-#        abyss-pe name=assignment K=$i k=36 in='/home/carlos/scripts/#ensambleDeSequenciasFastq//filteredData/Illumina1_filt.fastq /home/carlos/#scripts/ensambleDeSequenciasFastq//filteredData/Illumina2_filt.fastq' #B=100M H=1 kc=3 --directory=/home/carlos/scripts/ensambleDeSequenciasFastq//#alignments/K$i
-#         echo $i
-#done
+
+## fastq to sam
+#bowtie2 -x ~/scripts/ensambleDeSequenciasFastq/indexes/indexGiardia -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
+#bowtie2 -x indexes/giardia_ref -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
+  
+## sam to bam conversion
+#./scripts/samtools/samtools view -b -S -o scripts/ensambleDeSequenciasFastq/alignments/output.bam scripts/ensambleDeSequenciasFastq/alignments/output.sam
+#samtools view -b -S -o alignments/output.bam alignments/output.sam
+  
+## sorting bam file
+#./scripts/samtools/samtools sort scripts/ensambleDeSequenciasFastq/alignments/output.bam -o scripts/ensambleDeSequenciasFastq/alignments/sorted_output
+  
+## indexing bam file
+#./scripts/samtools/samtools index scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam
+  
+## bam to fasta
+#samtools bam2fq alignments/sorted_output | seqtk seq -A - > alignments/output.fq
+ 
+## bam to bed
+#bedtools bamtobed -i scripts/ensambleDeSequenciasFastq/alignments/sorted_output.bam | head -3
+
 
 	"""
 
