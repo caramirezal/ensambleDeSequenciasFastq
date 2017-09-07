@@ -26,6 +26,10 @@ routines.
 * assemblyReport.R - script to analyze the length of contigs. Used to 
 contruct the figure 2.
 * nextflow - tool for pipeline management (see dependencies).
+* folder_description.txt - fuller description of the content of each directory is given in the
+folder_description.txt file.
+
+
 
 ## 0. Running this pipeline
 
@@ -145,12 +149,27 @@ alignments directory. The length of the aligned sequences are shown in the next 
 The routine to process the data and plot the previous figure is 
 given in the assemblyReport.R script. 
 
+The parameter K was optimized in order to maximize the length mean of the
+contigs. The process was implemented as follows.
+
+```
+##K parameter optimization
+## uncomment this section and replace by your local
+## paths to fastq files
+for i in 10 11 12 13 14 15
+        do
+        mkdir $path0/alignments/K$i
+        abyss-pe name=assignment K=$i k=36 in='/home/carlos/scripts/#ensambleDeSequenciasFastq//filteredData/Illumina1_filt.fastq /home/carlos/#scripts/ensambleDeSequenciasFastq//filteredData/Illumina2_filt.fastq' B=100M H=1 kc=3 --directory=/home/carlos/scripts/ensambleDeSequenciasFastq//#alignments/K$i
+         echo $i
+done
+```
+
 
 ## Bonus. Anotation to reference genome
 
 **Work at progress**: Ongoing work is being carried out to align the
 assembled contigs sequences to reference libraries. The following 
-routines are allready implemented in the pipeline script.
+routines are already implemented in the pipeline script.
 
 ```r
 ## fastq to sam
