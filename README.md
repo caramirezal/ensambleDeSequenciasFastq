@@ -196,5 +196,5 @@ Blast searches with longer assembled sequences result from
 the assembled process were used to identify specie relationship.
 The best scores associate the provided sequences to *Giardia Lamblia*
 protozoa.
-The sequences were aligned to the [*Giardia lamblia*](https://www.ncbi.nlm.nih.gov/genome/genomes/26?) reference genome. 
+Hence, the sequences were aligned to the [*Giardia lamblia*](https://www.ncbi.nlm.nih.gov/genome/genomes/26?) reference genome. 
 
