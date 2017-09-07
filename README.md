@@ -26,8 +26,7 @@ routines.
 * assemblyReport.R - script to analyze the length of contigs. Used to 
 contruct the figure 2.
 * nextflow - tool for pipeline management (see dependencies).
-* folder_description.txt - fuller description of the content of each directory is given in the
-folder_description.txt file.
+* folder_description.txt - fuller description of the content of each directory is given in this file.
 
 
 
