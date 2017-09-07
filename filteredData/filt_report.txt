@@ -1,0 +1,74 @@
+This is cutadapt 1.14 with Python 3.6.1
+Command line parameters: -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -o /home/carlos/scripts/ensambleDeSequenciasFastq//filteredData/Illumina1_filt.fastq -p /home/carlos/scripts/ensambleDeSequenciasFastq//filteredData/Illumina2_filt.fastq /home/carlos/scripts/ensambleDeSequenciasFastq//data/Illumina1.fq.gz /home/carlos/scripts/ensambleDeSequenciasFastq//data/Illumina2.fq.gz -m 36 --max-n 1
+Trimming 2 adapters with at most 10.0% errors in paired-end mode ...
+Finished in 16.30 s (136 us/read; 0.44 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:            119,700
+  Read 1 with adapter:                   3,348 (2.8%)
+  Read 2 with adapter:                   3,311 (2.8%)
+Pairs that were too short:                 414 (0.3%)
+Pairs with too many N:                      18 (0.0%)
+Pairs written (passing filters):       119,268 (99.6%)
+
+Total basepairs processed:     9,576,000 bp
+  Read 1:     4,788,000 bp
+  Read 2:     4,788,000 bp
+Total written (filtered):      9,521,597 bp (99.4%)
+  Read 1:     4,760,720 bp
+  Read 2:     4,760,877 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC; Type: regular 3'; Length: 34; Trimmed: 3348 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-19 bp: 1; 20-29 bp: 2; 30-34 bp: 3
+
+Bases preceding removed adapters:
+  A: 27.1%
+  C: 28.3%
+  G: 23.9%
+  T: 20.7%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+3	2590	1870.3	0	2590
+4	569	467.6	0	569
+5	145	116.9	0	145
+6	23	29.2	0	23
+7	5	7.3	0	5
+8	1	1.8	0	1
+9	1	0.5	0	1
+10	9	0.1	1	0 9
+11	2	0.0	1	0 2
+12	2	0.0	1	0 2
+13	1	0.0	1	0 1
+
+=== Second read: Adapter 2 ===
+
+Sequence: AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT; Type: regular 3'; Length: 58; Trimmed: 3311 times.
+
+No. of allowed errors:
+0-9 bp: 0; 10-19 bp: 1; 20-29 bp: 2; 30-39 bp: 3; 40-49 bp: 4; 50-58 bp: 5
+
+Bases preceding removed adapters:
+  A: 29.2%
+  C: 26.7%
+  G: 24.9%
+  T: 19.1%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+3	2480	1870.3	0	2480
+4	606	467.6	0	606
+5	164	116.9	0	164
+6	36	29.2	0	36
+7	11	7.3	0	11
+9	7	0.5	0	1 6
+10	4	0.1	1	0 4
+11	3	0.0	1	0 3
+
