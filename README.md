@@ -59,7 +59,7 @@ see installation manual [here](http://cutadapt.readthedocs.io/en/stable/installa
  
 The next step is to specify your local paths. You can do this
 by openning the "pipeline" nextflow text file and change the path0,
-path1, and path2 to the current directory, first, and second fastq
+path1, and path2 to your current directory, first, and second fastq
 files local paths, respectively. In my case the head of the pipeline file
 is the following:
 
