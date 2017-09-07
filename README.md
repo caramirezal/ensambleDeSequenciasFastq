@@ -23,6 +23,9 @@ routines.
 * genomes - contain the reference fna genome (*Giardia lamblia*).
 * indexes - having builded reference genome files to align sequences.
 * qreports - quality control reports files.
+* assemblyReport.R - script to analyze the length of contigs. Used to 
+contruct the figure 2.
+* nextflow - tool for pipeline management (see dependencies).
 
 ## 0. Running this pipeline
 
@@ -45,7 +48,8 @@ cloned repository. Additionally, the following tools must be previously installe
 in the current repository executing `git clone https://github.com/LANL-Bioinformatics/FaQCs.git`
 * [cutadapt](http://cutadapt.readthedocs.io/en/stable/index.html) -
 see installation manual [here](http://cutadapt.readthedocs.io/en/stable/installation.html).
-* [RQC](https://bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html) - r Package *Optionally*.
+* [RQC](https://bioconductor.org/packages/devel/bioc/vignettes/Rqc/inst/doc/Rqc.html) - r Package *(Optional)*.
+* [abyss](https://github.com/bcgsc/abyss) -  run `sudo apt-get install abyss` on linux shell.
 
 
 ## 0.2 Preparing data
@@ -62,7 +66,8 @@ path1 = "/home/carlos/scripts/ensambleDeSequenciasFastq/data/Illumina1.fq.gz"
 path2 = "/home/carlos/scripts/ensambleDeSequenciasFastq/data/Illumina2.fq.gz"
 ```
 
-Once this is done the pipeline nextflow script can be executed by running
+Once this is done, the pipeline nextflow script can be executed by running
+the following command on the current cloned directory:
 
 ```r
 ./nextflow run pipeline
@@ -99,7 +104,7 @@ Rscript pipeLine.R
 ```
 
 
-## Data filtering
+## 2. Data filtering
 
 In order to improve the quality of the data used for the assembly the following 
 filter steps were perfomed: i) Illumina truSeq 3' adapters were removed 
@@ -126,9 +131,12 @@ The trimmed and filtered sequences obtained so far were assembled
 into contigs. The routine was carried out using [abyss](https://github.com/bcgsc/abyss) tool. The next code is implemented in the pipeline script.
 
 ```r
-abyss-pe name=assignment k=36 in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq'
+abyss-pe name=assignment K=10 k=36 \
+              in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq' \
+              B=100M H=1 kc=3 \
+              --directory=$path0/alignments
 ```
-
+ 
 The output aligned sequences in fasta format are exported into the
 alignments directory. The length of the aligned sequences are shown in the next figure.
 
@@ -137,7 +145,9 @@ alignments directory. The length of the aligned sequences are shown in the next 
 The routine to process the data and plot the previous figure is 
 given in the assemblyReport.R script. 
 
-## Bonus
+length >= 2 * Kmer::length()
+
+## Bonus. Anotation to reference genome
 
 **Work at progress**: Ongoing work is being carried out to align the
 assembled contigs sequences to reference libraries. The following 

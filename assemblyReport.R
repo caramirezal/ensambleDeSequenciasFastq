@@ -1,10 +1,10 @@
 
-
-
+## Locating paths
 files <- list.files(path = "alignments/",pattern = "*.[[:digit:]].fa$")
 paths <- paste("alignments/",files,sep = "")
-paths
 
+
+## determining the length of the sequences
 count <- NULL
 for (i in paths) {
         countLines <- readLines(i)
@@ -15,20 +15,19 @@ for (i in paths) {
         }
 }
 
+## Plotting the distribution of the lengths
 png("figures/lengthReadsleft.png")
 hist(count,breaks = 1000,col="steelblue",main = "Contigs length",
      xlab = "Number of nt",ylab = "Freq",cex.lab=1.1,font.lab=2)
 rug(count,col = "red")
-abline(v=114,col="green")
-mtext(text = "media = 114",at=114,col = "green")
-abline(v=284,col="blue")
-mtext("95th Q = 284",at=284)
+m <- mean(count)
+q95 <- quantile(count,0.95)
+abline(v=m,col="green")
+mtext(text = "mean=223",at=223)
+abline(v=q95,col="blue")
+mtext("95Q=587",at=q95)
 dev.off()
 plot.new()
 
 
-library(plotFun)
-df <- data.frame("length"=count)
-mhist(df)
 
-hist(count[count>300])

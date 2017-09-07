@@ -10,7 +10,7 @@ process fastq_assembly {
 """
 
 ## Quality reports
-#perl $path0/FaQCs/FaQCs.pl -p $path1 $path2 -d $path0/qreports/ -qc_only
+perl $path0/FaQCs/FaQCs.pl -p $path1 $path2 -d $path0/qreports/ -qc_only
 # Optional
 #Rscript pipeLine.R
 
@@ -19,17 +19,30 @@ process fastq_assembly {
 ## i) Illumina truSeq adaptors
 ## ii) reads < 36 nt
 ## iii) reads having N values
-#cutadapt \
-#             -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
-#             -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
-#             -o $path0/filteredData/Illumina1_filt.fastq -p $path0/#filteredData/Illumina2_filt.fastq  \
-#             $path0/data/Illumina1.fq.gz $path0/data/Illumina2.fq.gz  \
-#             -m 36 \
-#             --max-n 1  > $path0/filteredData/filt_report.txt
+cutadapt \
+             -a AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC \
+             -A AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT \
+             -o $path0/filteredData/Illumina1_filt.fastq -p $path0/filteredData/Illumina2_filt.fastq  \
+             $path0/data/Illumina1.fq.gz $path0/data/Illumina2.fq.gz  \
+             -m 36 \
+             --max-n 1  > $path0/filteredData/filt_report.txt
 
-cd $path0/alignments
-abyss-pe name=assignment k=36 in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq' 
-cd ..
+## sequences assembly
+abyss-pe name=assignment K=10 k=36 \
+              in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq' \
+              B=100M H=1 kc=3 \
+              --directory=$path0/alignments
+
+## K parameter optimization
+## uncomment this section and replace by your local
+## paths to fastq files
+#for i in 10 11 12 13 14 15
+#        do
+#        mkdir $path0/alignments/K$i
+#        abyss-pe name=assignment K=$i k=36 in='/home/carlos/scripts/#ensambleDeSequenciasFastq//filteredData/Illumina1_filt.fastq /home/carlos/#scripts/ensambleDeSequenciasFastq//filteredData/Illumina2_filt.fastq' #B=100M H=1 kc=3 --directory=/home/carlos/scripts/ensambleDeSequenciasFastq//#alignments/K$i
+#         echo $i
+#done
 
 	"""
+
 }
