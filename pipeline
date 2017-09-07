@@ -27,13 +27,14 @@ cutadapt \
              -m 36 \
              --max-n 1  > $path0/filteredData/filt_report.txt
 
-## sequences assembly
+## Sequences assembly
 abyss-pe name=assignment K=10 k=36 \
               in='$path0/filteredData/Illumina1_filt.fastq $path0/filteredData/Illumina2_filt.fastq' \
               B=100M H=1 kc=3 \
               --directory=$path0/alignments
 
 
+## Genome annotation
 ## fastq to sam
 #bowtie2 -x ~/scripts/ensambleDeSequenciasFastq/indexes/indexGiardia -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
 #bowtie2 -x indexes/giardia_ref -1 data/fastq/Illumina1.fq -2 data/fastq/Illumina2.fq -S alignments/output.sam
