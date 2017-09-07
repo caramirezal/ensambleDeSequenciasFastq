@@ -144,7 +144,7 @@ abyss-pe name=assignment K=10 k=36 \
 The output aligned sequences in fasta format are exported into the
 alignments directory. The length of the aligned sequences are shown in the next figure.
 
-![](figures/lengthReads.jpg)
+![](figures/lengthReads.png)
 
 The routine to process the data and plot the previous figure is 
 given in the assemblyReport.R script. 
