@@ -1,0 +1,41 @@
+After running the pipeline (see section 0 *Running this pipeline*) the
+following files are going to be saved in the given folders.
+
+** alignments/ - has the following aligned sequences in fasta format
+
+assignment-1.dot     assignment-4.path1     assignment-8.dot
+assignment-1.fa      assignment-4.path2     assignment-8.fa
+assignment-1.path    assignment-4.path3     assignment-bubbles.fa
+assignment-2.dot     assignment-5.dot       assignment-contigs.dot
+assignment-2.dot1    assignment-5.fa        assignment-contigs.fa
+assignment-2.fa      assignment-5.path      assignment-indel.fa
+assignment-2.path    assignment-6.dist.dot  assignment-scaffolds.dot
+assignment-3.dist    assignment-6.dot       assignment-scaffolds.fa
+assignment-3.dot     assignment-6.fa        assignment-stats
+assignment-3.fa      assignment-6.hist      assignment-stats.csv
+assignment-3.fa.fai  assignment-6.path      assignment-stats.md
+assignment-3.hist    assignment-6.path.dot  assignment-stats.tab
+assignment-4.dot     assignment-7.dot       assignment-unitigs.fa
+assignment-4.fa      assignment-7.fa        coverage.hist
+assignment-4.fa.fai  assignment-7.path
+
+The files are the output of running abyss routine in the pipeline script.
+
+** data/ - Illumina fastq data must be saved here by the user in
+order to run the pipeline as described in section 0. The following are 
+example files:
+
+Illumina1.fq.gz  Illumina2.fq.gz
+
+** filteredData/ - filtered data output from cutadapt routine in pipeline.
+The following are the output file names:
+
+Illumina1_filt.fastq  Illumina2_filt.fastq
+
+** figures - contain the figures used in the README.md documentation.
+
+FastQC_report.pdf
+lengthReads.png
+qcontrol.png
+
+
