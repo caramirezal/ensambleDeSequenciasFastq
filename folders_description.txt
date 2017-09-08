@@ -32,10 +32,36 @@ The following are the output file names:
 
 Illumina1_filt.fastq  Illumina2_filt.fastq
 
-** figures - contain the figures used in the README.md documentation.
+** figures/ - contain the figures used in the README.md documentation.
 
 FastQC_report.pdf
 lengthReads.png
 qcontrol.png
+
+** FaQCs/ - contain the cloned git repository for the FaQCs tool
+as described in the dependencies section. These are the list of the 
+files in the folder:
+
+COPYRIGHT  example  FaQCs.pl  galaxy_module  lib  LICENSE  README.md
+
+** genomes/ - contain the reference Giardia lamblia genome downloaded
+from the GenBank.
+
+GCA_001543975.1_G_duodenalis_AssB_BAH15c1_genomic.fna
+
+** indexes - contain the indexed genome builded from the reference
+genome of the genomes folder. These are the files:
+
+giardia_ref.3.bt2      giardia_ref.rev.2.bt2
+giardia_ref.1.bt2   giardia_ref.4.bt2
+giardia_ref.2.bt2   giardia_ref.rev.1.bt2
+
+** qreport - quality control report files generated from executing
+the pipeline.
+
+QC_qc_report.pdf QC.fastqCount.txt  QC.stats.txt
+
+
+
 
 
