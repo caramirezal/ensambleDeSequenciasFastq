@@ -164,7 +164,7 @@ done
 ```
 
 
-## Bonus. Anotation to reference genome
+## Bonus. Anotation to reference genome (outdated)
 
 **Work at progress**: Ongoing work is being carried out to align the
 assembled contigs sequences to reference libraries. The following 
